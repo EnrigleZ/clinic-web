@@ -18,5 +18,5 @@
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    if (!isset($_GET['s'])) echo "wu";
+    if (!isset($_GET['info'])) echo "信息修改等功能  维护中=-=";
 ?>
