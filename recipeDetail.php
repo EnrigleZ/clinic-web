@@ -7,7 +7,9 @@
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     
-    $sql_str = "SELECT recipe.*, name, mobile, address FROM recipe, patient WHERE recipe.rid ={$_GET['rid']} AND patient.id = recipe.pid;";
+    $sql_str = "SELECT recipe.*, patient.*, recipe.description AS rdes, patient.description AS pdes 
+                FROM recipe, patient 
+                WHERE recipe.rid ={$_GET['rid']} AND patient.id = recipe.pid;";
     $result_sql = $conn->query($sql_str);
     
     if (!($row = $result_sql->fetch_assoc())) {
@@ -49,7 +51,7 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-header">不直接的帮助</li>
                                 <li>
-                                    <a href="test.php">操作示例</a>
+                                    <a href="demo.html">操作示例</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li class="nav-header">直接的帮助</li>
@@ -109,7 +111,7 @@
                                         <dl class="dl-horizontal">
                                             <dt>姓名</dt>
                                             <dd>
-                                                <?php echo $row['name'];?></dd>
+                                                <?php echo $row['name']."--".$row['age']."岁(".($row['gender'] == 1?'男':'女').")";?></dd>
                                             <dt>联系方式</dt>
                                             <dd>
                                                 <?php echo $row['address'];?></dd>
@@ -126,6 +128,12 @@
                                                     }
                                                 ?>
                                             </dd>
+                                            <dt>患者备注</dt>
+                                            <dd>
+                                                <?php 
+                                                    echo ($row['pdes'] == ""?'无':$row['pdes'] );
+                                                ?>
+                                            </dd>
                                             <dt>收费</dt>
                                             <dd>
                                                 <?php echo $row['price'];?></dd>
@@ -137,7 +145,7 @@
                                         症状
                                     </div>
                                     <div class="module-body">
-                                        <?php echo $row['description']?>
+                                        <?php echo $row['rdes']?>
                                     </div>
                                 </div>
                                 <div class="module">

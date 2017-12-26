@@ -52,7 +52,7 @@
                                 <ul class="dropdown-menu">
                                     <li class="nav-header">不直接的帮助</li>
                                     <li>
-                                        <a href="test.php">操作示例</a>
+                                        <a href="demo.html">操作示例</a>
                                     </li>
                                     <li class="divider"></li>
                                     <li class="nav-header">直接的帮助</li>

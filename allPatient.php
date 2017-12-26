@@ -39,7 +39,7 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-header">不直接的帮助</li>
                                 <li>
-                                    <a href="test.php">操作示例</a>
+                                    <a href="demo.html">操作示例</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li class="nav-header">直接的帮助</li>
@@ -109,6 +109,7 @@
                                         if ($row['description'] == "") $row['description'] = "无";
                                         if ($row['mobile'] == "") $row['mobile'] = "无";
                                         if ($row['address'] == "") $row['address'] = "无";
+                                        if ($row['age'] == "") $row['age'] = "无";
                                         echo 
                                         '<tr class="gradeA">
                                             <td class="span6">
@@ -121,11 +122,14 @@
                                                             <h3 class="media-title">
                                                                 '.$row["name"].'</h3>
                                                             <p>
-                                                                <small class="muted">'.$row['mobile'].'</small>
+                                                                <small class="muted">手机：'.$row['mobile'].'</small>
+                                                            </p>
+                                                            <p>
+                                                                <small class="muted">年龄：'.$row['age'].'</small>
                                                             </p>
                                                             <div class="media-option btn-group shaded-icon">
                                                                 <a class="btn btn-mini btn-info" href="test.php?name='.$row['name'].'">此人全部病历</a>
-                                                                <a class="btn btn-mini btn-success" href="editPatient.php?name='.$row['name'].'">修改资料</a>
+                                                                <a class="btn btn-mini btn-success" href="editPatient.php?type=1&pid='.$row['id'].'">修改资料</a>
                                                             </div>
                                                         </div>
                                                     </div>
