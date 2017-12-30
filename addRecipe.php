@@ -1,47 +1,50 @@
 ﻿<?php
-    $servername = "localhost";
-	$username = "clinic";
-	$password = "fred1111";
-	$dbname = "clinic";
-
 	$insertFlag = 0;
+	
 	$lastName = "";
 	$lastDescription = "";
-	$lastTreattime = date("Y-m-d", time());
+	date_default_timezone_set("PRC");
+	
 	$lastTimedetail = "";
 	$lastPrice = "";
-
-	if ($_POST["name"] != "" && $_POST["description"] != "") {
-	// 判断是否表单有效：姓名 & 症状
-
-		$conn = new mysqli($servername, $username, $password, $dbname);
-
-		if (!isset($_POST['timedetail'])) $_POST['timedetail'] = 0;
-		if ($_POST['treattime'] == "") {
-			$_POST['treattime'] = date("Y-m-d", time());
-			$_POST['timedetail'] = 0;
-		}
-		if ($_POST['price'] == "") $_POST['price'] = 0;
-		
-		(new mysqli($servername, $username, $password, $dbname))->query("call checkName('".$_POST['name']."')");
-
-		$sql_str = "INSERT INTO recipe(pid, treattime, timedetail, description, price, diagnosis, cure)
-					SELECT id, '".$_POST['treattime']."',".$_POST['timedetail'].",'".
-					$_POST['description']."',".$_POST['price'].",'".$_POST['diagnosis']."','".
-					$_POST['cure']."'
-					FROM patient WHERE name = '".$_POST['name']."';";
-		//echo $sql_str;
-
-		if ($conn->query($sql_str)) $insertFlag = 1;
-		else $insertFlag = -1;
-
-		//echo $sql_str;
-		//echo $conn->affected_rows;
-	}
-	else if ($_POST["name"] != "" || $_POST["description"] != "") {
-		$insertFlag = 2;
-	}
 	
+	if (isset($_GET["add"]) && $_GET["add"] == 1) {
+		$servername = "localhost";
+		$username = "clinic";
+		$password = "fred1111";
+		$dbname = "clinic";
+
+		if (isset($_POST["name"]) && isset($_POST["name"]) && $_POST["name"] != "" && $_POST["description"] != "") {
+		// 判断是否表单有效：姓名 & 症状
+
+			$conn = new mysqli($servername, $username, $password, $dbname);
+
+			if (!isset($_POST['timedetail'])) $_POST['timedetail'] = 0;
+			if ($_POST['treattime'] == "") {
+				$_POST['treattime'] = date("Y-m-d", time());
+				$_POST['timedetail'] = 0;
+			}
+			if ($_POST['price'] == "") $_POST['price'] = 0;
+			
+			(new mysqli($servername, $username, $password, $dbname))->query("call checkName('".$_POST['name']."')");
+
+			$sql_str = "INSERT INTO recipe(pid, treattime, timedetail, description, price, diagnosis, cure)
+						SELECT id, '".$_POST['treattime']."',".$_POST['timedetail'].",'".
+						$_POST['description']."',".$_POST['price'].",'".$_POST['diagnosis']."','".
+						$_POST['cure']."'
+						FROM patient WHERE name = '".$_POST['name']."';";
+			//echo $sql_str;
+
+			if ($conn->query($sql_str)) $insertFlag = 1;
+			else $insertFlag = -1;
+
+			//echo $sql_str;
+			//echo $conn->affected_rows;
+		}
+		else if ((isset($_POST["name"]) && isset($_POST["name"])) && ($_POST["name"] != "" || $_POST["description"] != "")) {
+			$insertFlag = 2;	//信息不完全，有一个没填
+		}
+	}	
 ?>
 
 <html lang="en">
@@ -118,8 +121,6 @@
 		<!-- /navbar-inner -->
 	</div>
 
-
-
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
@@ -176,8 +177,17 @@
 									$lastDiagnosis = $_POST["diagnosis"];
 									$lastCure = $_POST["cure"];
 								}
+								else {
+									$lastName = "";
+									$lastDescription = "";
+									$lastTreattime = date("Y-m-d", time());
+									$lastTimedetail = "";
+									$lastPrice = "";
+									$lastDiagnosis = "";
+									$lastCure = "";
+								}
 							?>
-								<form class="form-horizontal row-fluid" method="post", action="">
+								<form class="form-horizontal row-fluid" method="post", action="addRecipe.php?add=1">
 									<div class="control-group">
 										<label class="control-label" for="basicinput">姓名</label>
 										<div class="controls">
@@ -261,8 +271,8 @@
 		</div>
 	</div>
 
-	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<!-- <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script> -->
 </body>

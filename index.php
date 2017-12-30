@@ -140,17 +140,17 @@
                                     <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%" id="recipeAbstractTable">
                                         <thead>
                                             <tr>
-                                                <th width="7%">
+                                                <th>
                                                     姓名
                                                 </th>
-                                                <th width="15%">
+                                                <th>
                                                     就诊时间
                                                 </th>
 
                                                 <th>
                                                     诊断
                                                 </th>
-                                                <th width="20%">
+                                                <th>
                                                     操作
                                                 </th>
 
@@ -256,8 +256,8 @@
         <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
         <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-        <script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script>
+        <!-- <script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+        <script src="scripts/flot/jquery.flot.resize.js" type="text/javascript"></script> -->
         <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
         <script src="scripts/common.js" type="text/javascript"></script>
 
