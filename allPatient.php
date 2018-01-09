@@ -26,10 +26,31 @@
     <div class="wrapper">
         <div class="container">
             <div class="row">
-
-                <!--/.span3-->
+                <?php
+                    if (!empty($_GET["action"]) && !empty($_GET["result"])) {
+                        if ($_GET["action"] == "add") $action = "添加";
+                        else if ($_GET["action"] == "modify") $action = "修改";
+                        else $action = "exit";
+                        if ($action != "exit" && $_GET["result"] == 1) {
+                            echo '<div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <strong>'.$action.'成功！</strong>可以在下方列表中检查
+                                    </div>';
+                        }
+                    }
+                ?>
                 <div class="span12">
-                    <div class="content">
+                    <div style="margin-bottom: 30px">
+                        <a class="btn-box span3" href="editPatient.php">
+                            <i class="icon-edit"></i>
+                            <b>加入新患者</b>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="span12">
+                    <div >
+                       
                         <div class="module">
                             <div class="module-head">
                                 <h3>
@@ -42,7 +63,6 @@
                                             <th>
                                                 患者信息
                                             </th>
-
                                         </tr>
                                     </thead>
 

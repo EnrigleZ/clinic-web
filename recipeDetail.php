@@ -1,5 +1,15 @@
 <?php
 
+    /* function getRowInfo
+
+        get information from SQL-query result
+    */
+    function getRowInfo($_row, $_str_info)
+    {
+        if (empty($_row[$_str_info])) return "<br>";
+        else return $_row[$_str_info];
+    }
+
     $servername = "localhost";
 	$username = "clinic";
 	$password = "fred1111";
@@ -16,9 +26,7 @@
         echo "WRONG RECIPE";
     }
     //echo $sql_str;
-    
-    if ($row['mobile'] == "") $row['mobile'] = "手机暂无";
-    if ($row['address'] == "") $row['address'] = "地址暂无";
+
 ?>
 <head>
 
@@ -46,41 +54,87 @@
 								<h3>病历详情 - <?php echo $row['name'];?></h3>
 							</div>
 							<div class="module-body">
-                                <div class="module">
+                                <div class="module" id="recipe_abstract">
                                     <div class="module-head">
                                         患者信息
                                     </div>
                                     <div class="module-body">
-                                        <dl class="dl-horizontal">
-                                            <dt>姓名</dt>
-                                            <dd>
-                                                <?php echo $row['name']."--".$row['age']."岁(".($row['gender'] == 1?'男':'女').")";?></dd>
-                                            <dt>联系方式</dt>
-                                            <dd>
-                                                <?php echo $row['address'];?></dd>
-                                            <dd>
-                                                <?php echo $row['mobile'];?></dd>    
-                                            <dt>日期</dt>
-                                            <dd>
-                                                <?php 
-                                                    echo $row['treattime'].'&nbsp';
-                                                    switch ($row['timedetail']) {
-                                                        case 1: echo "早上"; break;
-                                                        case 2: echo "下午"; break;
-                                                        case 3: echo "晚上"; break;
-                                                    }
-                                                ?>
-                                            </dd>
-                                            <dt>患者备注</dt>
-                                            <dd>
-                                                <?php 
-                                                    echo ($row['pdes'] == ""?'无':$row['pdes'] );
-                                                ?>
-                                            </dd>
-                                            <dt>收费</dt>
-                                            <dd>
-                                                <?php echo $row['price'];?></dd>
-                                        </dl>
+                                        <div class="btn-box-row row-fluid">
+                                            <div class="span6">
+                                                <div class="row-fluid">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>姓名</dt>
+                                                        <dd>
+                                                            <?php echo getRowInfo($row,"name");?></dd>
+                                                        <dt>性别</dt>
+                                                        <dd>
+                                                            <?php 
+                                                                if ($gender = getRowInfo($row, "gender") != "<br>") echo $gender == 1 ? "男" : "女";
+                                                                else echo "<br>";   
+                                                            ?></dd>
+                                                        <dt>年龄</dt>
+                                                        <dd>
+                                                            <?php echo getRowInfo($row, "age"); ?></dd>
+                                                        <dt>联系方式</dt>
+                                                        <dd>
+                                                            <?php echo getRowInfo($row, "address");?></dd>
+                                                        <dd>
+                                                            <?php echo getRowInfo($row, "mobile");?></dd>    
+                                                        <dt>患者备注</dt>
+                                                        <dd>
+                                                            <?php 
+                                                                echo getRowInfo($row, "pdes");
+                                                            ?>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                            <div class="span6">
+                                                <div class="row-fluid">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>日期</dt>
+                                                        <dd>
+                                                            <?php 
+                                                                echo $row['treattime'].'&nbsp';
+                                                                switch ($row['timedetail']) {
+                                                                    case 1: echo "早上"; break;
+                                                                    case 2: echo "下午"; break;
+                                                                    case 3: echo "晚上"; break;
+                                                                }
+                                                            ?>
+                                                        </dd>
+                                                        
+                                                        <dt>应收金额</dt>
+                                                        <dd>
+                                                            <?php 
+                                                                $price = getRowInfo($row, "price");     
+                                                                echo $price;
+                                                            ?>
+                                                        </dd>
+                                                        <dt>已收金额</dt>
+                                                        <dd>
+                                                            <?php
+                                                                $price_paid = getRowInfo($row, "price_paid");
+                                                                echo getRowInfo($row, "price_paid")
+                                                            ?>
+                                                        </dd>
+                                                        <dt style="margin-top: 10px;">
+                                                            <?php 
+                                                                if ($price == $price_paid && $price != "<br>") {
+                                                                    echo "金额结清";
+                                                                }
+                                                                else if ($price == "<br>" || $price_paid == "<br>") {
+                                                                    echo '<span style="color: blue;">金额填写不完整</span>';
+                                                                }
+                                                                else echo '<span style="color:red">欠钱</span>';
+                                                            ?>
+                                                        </dt>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>                            
                                 <div class="module">
@@ -120,12 +174,7 @@
         <!--/.container-->
     </div>
     <!--/.wrapper-->
-    <div class="footer">
-        <div class="container">
-            <b class="copyright">&copy; 2014 Edmin - EGrappler </b>All rights reserved.
-            
-        </div>
-    </div>
+    
     <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
     <script src="scripts/style.js" type="text/javascript"></script>

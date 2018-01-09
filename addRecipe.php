@@ -28,10 +28,10 @@
 			
 			(new mysqli($servername, $username, $password, $dbname))->query("call checkName('".$_POST['name']."')");
 
-			$sql_str = "INSERT INTO recipe(pid, treattime, timedetail, description, price, diagnosis, cure)
+			$sql_str = "INSERT INTO recipe(pid, treattime, timedetail, description, price, diagnosis, cure, price_paid)
 						SELECT id, '".$_POST['treattime']."',".$_POST['timedetail'].",'".
 						$_POST['description']."',".$_POST['price'].",'".$_POST['diagnosis']."','".
-						$_POST['cure']."'
+						$_POST['cure']."', ".$_POST["price_paid"]." 
 						FROM patient WHERE name = '".$_POST['name']."';";
 			//echo $sql_str;
 
@@ -119,6 +119,7 @@
 									$lastPrice = $_POST["price"];
 									$lastDiagnosis = $_POST["diagnosis"];
 									$lastCure = $_POST["cure"];
+									$lastPricePaid = $_POST["price_paid"];
 								}
 								else {
 									$lastName = "";
@@ -128,6 +129,7 @@
 									$lastPrice = "";
 									$lastDiagnosis = "";
 									$lastCure = "";
+									$lastPricePaid = "";
 								}
 							?>
 								<form class="form-horizontal row-fluid" method="post", action="addRecipe.php?add=1">
@@ -171,6 +173,16 @@
 									</div>
 
 									<div class="control-group">
+										<label class="control-label" for="basicinput">已收款项</label>
+										<div class="controls">
+											<div class="input-append">
+												<input type="text" placeholder="已经收了多少钱" name="price_paid" class="span8" value="<?php echo $lastPricePaid;?>">
+												<span class="add-on">元</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="control-group">
 										<label class="control-label" for="basicinput">就诊时间</label>
 										<div class="controls">
 											<input type="text" id="basicinput" name="treattime" placeholder="输入时间" class="span8" value="<?php echo $lastTreattime;?>" style="width:213px;">
@@ -207,8 +219,9 @@
 		<!--/.container-->
 	</div>
 	<!--/.wrapper-->
-
-	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="scripts/style.js" type="text/javascript"></script>
+		<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+        <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+        <script src="scripts/style.js"></script>
 </body>

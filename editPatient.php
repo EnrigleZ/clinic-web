@@ -22,7 +22,7 @@
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     $type = 0;
-    $type = $_GET['type'];
+    if (!empty($_GET['type'])) $type = $_GET['type'];
     if ($type == 1) {
         $result = $conn->query("select * from patient where id = {$_GET['pid']};");
         $row = $result->fetch_assoc();
@@ -44,47 +44,54 @@
                         </div>
                         <div class="module-body">
                         
-                            <form class="form-horizontal row-fluid" method="post", action="editPatient_do.php?<?php echo "type={$_GET['type']}&id={$_GET['pid']}";?>">
-                                <div class="control-group" style="display:inline-block">
+                            <form class="form-horizontal row-fluid" method="post", action="editPatient_do.php?<?php if ($type == 1) echo "type={$_GET['type']}&id={$_GET['pid']}";?>">
+                                
+                                <div class="control-group">
                                     <label class="control-label" for="basicinput">姓名</label>
                                     <div class="controls">
-                                        <input type="text" id="basicinput" name="name" placeholder="输入病历患者姓名...比如张三" class="span8" value="<?php echo $row['name'];?>">
-                                        
-                                    </div>
+                                        <input type="text" id="basicinput" name="name" placeholder="输入病历患者姓名...比如张三" class="span8" value="<?php if ($type == 1)  echo $row['name'];?>">
+                                    </div>                                    
                                 </div>
-                                <div class="control-group" style="display:inline-block">
-                                    <label class="control-label" style="width:50px" for="basicinput">年龄</label>
-                                    <div class="controls" style="margin-left:60px">
-                                        <input type="text" id="basicinput" name="age" placeholder="年龄" class="span3" value="<?php echo $row['age'];?>">
-                                        <span class="help-inline" style="margin-left: 80px">姓名更改后，无需手动更改相关病历中的姓名</span>
-                                    </div>
-                                </div>
-                                <div class="controls">
-                                    <label class="radio inline">
-                                        <input type="radio" name="gender" id="optionsRadios1" value="1" <?php if ($row['gender'] == 1) echo "checked";?>> 男
-                                    </label>
-                                    <label class="radio inline">
-                                        <input type="radio" name="gender" id="optionsRadios2" value="2" <?php if ($row['gender'] == 0) echo "checked";?>> 女
-                                    </label>
+
+                                <!-- <div class="controls"  style="display:inline-block">
                                     
+                                </div> -->
+
+                                <div class="control-group">
+                                    <label class="control-label" for="basicinput">年龄</label>
+                                    <div class="controls">
+                                        <input type="text" id="basicinput" name="age" placeholder="年龄" class="span3" value="<?php if ($type == 1)  echo $row['age'];?>">
+
+
+                                        <!--Gender-->
+                                        <span class="">
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" id="optionsRadios1" value="1" <?php if ($type == 1 && $row['gender'] == 1) echo "checked";?>> 男
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" id="optionsRadios2" value="2" <?php if ($type == 1 && $row['gender'] == 0) echo "checked";?>> 女
+                                            </label>
+                                        </span>
+                                    </div>
                                 </div>
+
                                 
                                 <div class="control-group" >
                                     <label class="control-label" for="basicinput">住址</label>
                                     <div class="controls">
-                                    <input type="text" class="span8"  id="basicinput" name="address" placeholder="输入住址" class="span12" value="<?php echo $row['address'];?>">
+                                    <input type="text" class="span8"  id="basicinput" name="address" placeholder="输入住址" class="span12" value="<?php  if ($type == 1) echo $row['address'];?>">
                                     </div>
                                 </div>
                                 <div class="control-group" >
                                     <label class="control-label" for="basicinput">电话</label>
                                     <div class="controls">
-                                    <input type="text" class="span8"  id="basicinput" name="mobile" placeholder="输入联系电话" class="span12" value="<?php echo $row['mobile'];?>">
+                                    <input type="text" class="span8"  id="basicinput" name="mobile" placeholder="输入联系电话" class="span12" value="<?php if ($type == 1)  echo $row['mobile'];?>">
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label class="control-label" for="basicinput">备注</label>
                                     <div class="controls">
-                                        <textarea class="span8" rows="5" name="description" placeholder="写一下这人有啥要备注的，比如高血压，可不填"><?php echo $row['description'];?></textarea>
+                                        <textarea class="span8" rows="5" name="description" placeholder="写一下这人有啥要备注的，比如高血压，可不填"><?php if ($type == 1)  echo $row['description'];?></textarea>
                                     </div>
                                 </div>
 

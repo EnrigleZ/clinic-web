@@ -39,9 +39,12 @@
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
+        // 可以加一个检查是否名字已经存在的功能
+        // 但是现在忘了怎么执行第二条SQL，改天吧
     if ($conn->query($sql_str)) {
         $conn->close();
-        header("Location: allPatient.php"); 
+        $url_to = "Location: allPatient.php?action=".$_GET['type'] == 1 ? "modify" : "add"."&result=1";
+        header("Location: allPatient.php?action=add&result=1"); 
     }
     else {
         echo "<h1>添加失败！</h1><br>";
