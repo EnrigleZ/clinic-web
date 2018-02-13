@@ -22,7 +22,7 @@
         $sql_str = "UPDATE patient 
         SET name='{$_POST['name']}', age={$_POST['age']}, gender={$_POST['gender']},
         mobile='{$_POST['mobile']}', address='{$_POST['address']}', description='{$_POST['description']}'
-        WHERE id={$_GET['id']};
+        WHERE id={$_GET['pid']};
         ";
     }
     else {
@@ -43,8 +43,10 @@
         // 但是现在忘了怎么执行第二条SQL，改天吧
     if ($conn->query($sql_str)) {
         $conn->close();
-        $url_to = "Location: allPatient.php?action=".$_GET['type'] == 1 ? "modify" : "add"."&result=1";
-        header("Location: allPatient.php?action=add&result=1"); 
+        //echo "done.";
+        $url_to = "Location: allPatient.php?action=".($_GET['type'] == 1 ? "modify" : "add")."&result=1";
+        echo $url_to;
+        header($url_to); 
     }
     else {
         echo "<h1>添加失败！</h1><br>";

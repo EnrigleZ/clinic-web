@@ -44,7 +44,7 @@
                         </div>
                         <div class="module-body">
                         
-                            <form class="form-horizontal row-fluid" method="post", action="editPatient_do.php?<?php if ($type == 1) echo "type={$_GET['type']}&id={$_GET['pid']}";?>">
+                            <form class="form-horizontal row-fluid" method="post", action="editPatient_do.php?<?php if ($type == 1) echo "type={$_GET['type']}&pid={$_GET['pid']}";?>">
                                 
                                 <div class="control-group">
                                     <label class="control-label" for="basicinput">姓名</label>
@@ -111,8 +111,11 @@
         <!--/.container-->
     </div>
     <!--/.wrapper-->
-
+    
     <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-	<script src="scripts/style.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/common.js" type="text/javascript"></script>
+    <script src="scripts/style.js"></script>
 </body>

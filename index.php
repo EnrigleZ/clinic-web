@@ -75,6 +75,19 @@
 
                             </div>
                             <!--/#btn-controls-->
+                            <?php
+                            // 判断是否显示提示栏  flag == 1
+                            // 再根据 action 确定显示啥玩意
+                            if (isset($_GET["flag"]) && isset($_GET["action"]) && $_GET["flag"] == 1) {
+                                //echo $_GET["action"];
+                                if ($_GET["action"] == 'delete') {
+                                    echo '<div class="alert alert-success">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <strong>删除成功！</strong>已从病历记录中删除病历
+                                    </div>';
+                                }
+                            }
+                            ?>
                             <div class="module">
                                 <div class="module-head">
                                     <h3>

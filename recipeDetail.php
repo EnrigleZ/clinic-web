@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <a class="btn btn-warning" href="test.php?rid='.$row['rid'].'">修改病历</a>
-                                <a class="btn btn-danger" href="test.php?pid='.$row['pid'].'">删除病历</a>
+                                <a class="btn btn-danger" href="deleteRecipe_do.php?rid=<?php echo $row['rid']?>">删除病历</a>
 							</div>
 						</div>
 
@@ -177,7 +177,10 @@
     
     <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-    <script src="scripts/style.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="scripts/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="scripts/common.js" type="text/javascript"></script>
+    <script src="scripts/style.js"></script>
 </body>
 <?php
 $conn->close();
