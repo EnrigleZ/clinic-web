@@ -22,6 +22,10 @@
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     $type = 0;
+
+    // type:
+    //      0: add new; 1: edit
+    
     if (!empty($_GET['type'])) $type = $_GET['type'];
     if ($type == 1) {
         $result = $conn->query("select * from patient where id = {$_GET['pid']};");

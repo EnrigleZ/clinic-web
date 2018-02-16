@@ -15,10 +15,28 @@
         echo '<a class="btn btn-large btn-info" style="font-size:3rem;" onclick="window.history.back();">返回上一页</a>';
         return;
     }
+
+    $servername = "localhost";
+	$username = "clinic";
+	$password = "fred1111";
+	$dbname = "clinic";
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
     if ($_POST['age'] == "") $_POST['age'] = 'null';
     if ($_POST['gender'] == "") $_POST['gender'] = 'null';
 
     if ($_GET['type'] == 1) {
+        
+        // check duplication of name
+        $check_sql_str = "SELECT COUNT(*) AS is_dup FROM patient WHERE id <> {$_GET['pid']} AND name = '{$_POST['name']}'";
+        $check_row = $conn->query($check_sql_str)->fetch_assoc();
+        if ($check_row['is_dup'] != 0) {
+            echo "<h1>姓名已存在</h1><br>";
+            echo '<a class="btn btn-large btn-info" style="font-size:3rem;" onclick="window.history.back();">返回上一页</a>';
+            return;
+        }
+
         $sql_str = "UPDATE patient 
         SET name='{$_POST['name']}', age={$_POST['age']}, gender={$_POST['gender']},
         mobile='{$_POST['mobile']}', address='{$_POST['address']}', description='{$_POST['description']}'
@@ -31,16 +49,7 @@
         '{$_POST['mobile']}', '{$_POST['address']}', '{$_POST['description']}');
         ";
     }
-
-    $servername = "localhost";
-	$username = "clinic";
-	$password = "fred1111";
-	$dbname = "clinic";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // 可以加一个检查是否名字已经存在的功能
-        // 但是现在忘了怎么执行第二条SQL，改天吧
+ 
     if ($conn->query($sql_str)) {
         $conn->close();
         //echo "done.";

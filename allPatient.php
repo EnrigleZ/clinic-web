@@ -41,7 +41,7 @@
                 ?>
                 <div class="span12">
                     <div style="margin-bottom: 30px">
-                        <a class="btn-box span3" href="editPatient.php">
+                        <a class="btn-box span3" href="editPatient.php?type=0">
                             <i class="icon-edit"></i>
                             <b>加入新患者</b>
                         </a>
