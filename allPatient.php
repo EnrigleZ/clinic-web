@@ -91,7 +91,7 @@
                                                                 <small class="muted">年龄：'.$row['age'].'</small>
                                                             </p>
                                                             <div class="media-option btn-group shaded-icon">
-                                                                <a class="btn btn-mini btn-info" href="test.php?name='.$row['name'].'">此人全部病历</a>
+                                                                <a class="btn btn-mini btn-info" href="allPatientRecipe.php?pid='.$row['id'].'">此人全部病历</a>
                                                                 <a class="btn btn-mini btn-success" href="editPatient.php?type=1&pid='.$row['id'].'">修改资料</a>
                                                             </div>
                                                         </div>

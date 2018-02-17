@@ -121,7 +121,7 @@
                                                         </dd>
                                                         <dt style="margin-top: 10px;">
                                                             <?php 
-                                                                if ($price == $price_paid && $price != "<br>") {
+                                                                if ($price != "<br>" && $price <= $price_paid) {
                                                                     echo "金额结清";
                                                                 }
                                                                 else if ($price == "<br>" || $price_paid == "<br>") {
